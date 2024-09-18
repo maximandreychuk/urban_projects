@@ -12,7 +12,8 @@ def main():
 
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
-
+    # Calculates and outputs the average closing price of shares for a given period.
+    print(dd.calculate_and_display_average_price(stock_data))
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
 

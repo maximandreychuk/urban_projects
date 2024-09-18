@@ -9,5 +9,5 @@
 
 
 ### Решение
-функция calculate_and_display_average_price в файле data_download.py
+Функция calculate_and_display_average_price в файле data_download.py
 вывод в main.py

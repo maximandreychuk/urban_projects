@@ -12,4 +12,10 @@ def add_moving_average(data, window_size=5):
     return data
 
 def calculate_and_display_average_price(data):
+    """
+    Функция принимает DataFrame и вычисляет среднее значение колонки 'Close'.
+    """
     return data["Close"].mean()
+
+ def notify_if_strong_fluctuations(data, threshold):
+

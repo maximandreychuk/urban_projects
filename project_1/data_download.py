@@ -34,6 +34,3 @@ def notify_if_strong_fluctuations(data, treshold):
     if len(dct) != 0:
         for key, value in dct.items():
             print(f"Уведомление!\n {key} пробит порог {treshold} на {value}")
-
-    print(data['High'],  data['Low'] )
-

@@ -13,7 +13,27 @@ def add_moving_average(data, window_size=5):
 
 def calculate_and_display_average_price(data):
     # принимаем DataFrame и вычисляем среднее значение колонки 'Close'.
-    return data["Close"].mean()
+    print(f"Среднее значение за выбранный период - {data["Close"].mean()}")
 
- def notify_if_strong_fluctuations(data, threshold):
+def notify_if_strong_fluctuations(data, treshold):
+    # объявляем словарь для записи даты и разницы
+    dct = {}
+    # получаем минимальное и максимальное значения цены закрытия
+    for i in data['Low']:
+        for j in data['High']:
+            # находим разницу
+            diff = j - i
+            # если разница превышает порог, записываем в словарь
+            if treshold < diff:
+                # получаем дату (например, по High)
+                low_key = data.index[data['High'] == j].tolist()
+                # форматируем дату
+                date_format = f"{low_key[0].day}.{low_key[0].month}.{low_key[0].year}"
+                dct[date_format] = diff-treshold
+    # если словарь не пуст, отправляем уведомление
+    if len(dct) != 0:
+        for key, value in dct.items():
+            print(f"Уведомление!\n {key} пробит порог {treshold} на {value}")
+
+    print(data['High'],  data['Low'] )
 

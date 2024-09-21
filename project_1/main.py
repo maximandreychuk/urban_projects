@@ -9,14 +9,15 @@ def main():
 
     ticker = input("Введите тикер акции (например, «AAPL» для Apple Inc):»")
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
+    treshold = float(input("Введите порог для данных (например, 10.2): "))
 
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
+    dd.notify_if_strong_fluctuations(stock_data, treshold)
     # Calculates and outputs the average closing price of shares for a given period.
-    print(dd.calculate_and_display_average_price(stock_data))
+    dd.calculate_and_display_average_price(stock_data)
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
-
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
 

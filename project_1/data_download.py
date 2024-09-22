@@ -6,11 +6,8 @@ logging.basicConfig(
     level=logging.INFO,
     filename="my_log.log",
     filemode="w",
-    format="%(asctime)s %(levelname)s %(message)s" ,
+    format="%(asctime)s %(levelname)s %(message)s",
 )
-
-formatter = logging.Formatter("%(asctime)s;%(levelname)s;%(message)s",
-                              "%Y-%m-%d %H:%M:%S")
 
 def fetch_stock_data(ticker, period='1mo'):
     stock = yf.Ticker(ticker)

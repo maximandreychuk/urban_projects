@@ -9,10 +9,11 @@ def main():
 
     ticker = input("Введите тикер акции (например, «AAPL» для Apple Inc):»")
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
-    treshold = float(input("Введите порог для данных (например, 10.2): "))
+    treshold = input("Введите порог для данных (например, 10.2): ")
 
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
+    # Notification of strong fluctuations
     dd.notify_if_strong_fluctuations(stock_data, treshold)
     # Calculates and outputs the average closing price of shares for a given period.
     dd.calculate_and_display_average_price(stock_data)

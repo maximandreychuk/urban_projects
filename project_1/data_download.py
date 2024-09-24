@@ -1,7 +1,6 @@
 import logging
 import yfinance as yf
 
-
 logging.basicConfig(
     level=logging.INFO,
     filename="my_log.log",
@@ -71,4 +70,11 @@ def notify_if_strong_fluctuations(data, treshold):
             "%s: Сильных колебаний нет",
             notify_if_strong_fluctuations.__name__
         )
+
+
+def export_data_to_csv(data, filename):
+    # запись данных в csv файл
+    data.to_csv(filename, index=False)
+    logging.info("Данные записаны в csv file")
+
 

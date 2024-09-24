@@ -1,6 +1,8 @@
 import data_download as dd
 import data_plotting as dplt
 
+import datetime as dt
+
 
 def main():
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
@@ -21,6 +23,8 @@ def main():
     stock_data = dd.add_moving_average(stock_data)
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
+    # Writing data to csv file
+    dd.export_data_to_csv(stock_data,f"{ticker}_{period}_{dt.date.today()}.csv")
 
 
 if __name__ == "__main__":

@@ -19,8 +19,8 @@ class RunTest(unittest.TestCase):
 
     def test_get_notification(self):
         msg = "Уведомление не пришло"
-        average_price = notify_if_strong_fluctuations(self.stock_data, 0.001)
-        self.assertIsInstance(average_price, str, msg)
+        notification = notify_if_strong_fluctuations(self.stock_data, 0.001)
+        self.assertIsInstance(notification, str, msg)
 
 
 if __name__ == '__main__':

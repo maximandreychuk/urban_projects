@@ -16,7 +16,7 @@ def main():
     # Notification of strong fluctuations
     dd.notify_if_strong_fluctuations(stock_data, treshold)
     # Calculates and outputs the average closing price of shares for a given period.
-    dd.calculate_and_display_average_price(stock_data)
+    print(f"Среднее значение за выбранный период - {dd.calculate_and_display_average_price(stock_data)}")
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
     # Plot the data

@@ -25,7 +25,7 @@ def calculate_and_display_average_price(data):
         calculate_and_display_average_price.__name__,
         {data["Close"].mean()}
     )
-    print(f"Среднее значение за выбранный период - {data["Close"].mean()}")
+    return data["Close"].mean()
 
 def notify_if_strong_fluctuations(data, treshold):
     # проверка что treshold это float

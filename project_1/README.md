@@ -9,5 +9,8 @@ _Уведомление о сильных колебаниях_
 ![alt text](./images_for_pr_1_readme/ex_task2.png)
 
 ### Задача 3
+_Экспорт данных в CSV_
+
+![alt text](./images_for_pr_1_readme/ex_task3.png)
 
 

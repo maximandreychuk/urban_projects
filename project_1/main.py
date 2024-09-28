@@ -16,15 +16,18 @@ def main():
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
     # Notification of strong fluctuations
-    dd.notify_if_strong_fluctuations(stock_data, treshold)
+    print(dd.notify_if_strong_fluctuations(stock_data, treshold))
     # Calculates and outputs the average closing price of shares for a given period.
     print(f"Среднее значение за выбранный период - {dd.calculate_and_display_average_price(stock_data)}")
+    # Calculate RSI
+    stock_data = dd.calculate_rsi(stock_data)
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
     # Writing data to csv file
-    dd.export_data_to_csv(stock_data,f"{ticker}_{period}_{dt.date.today()}.csv")
+    dd.export_data_to_csv(stock_data,f"{ticker}_{period}_data_{dt.date.today()}.csv")
+
 
 
 if __name__ == "__main__":

@@ -13,4 +13,8 @@ _Экспорт данных в CSV_
 
 ![alt text](./images_for_pr_1_readme/ex_task3.png)
 
+### Задача 4
+_Добавление дополнительных технических индикаторов_
+
+![alt text](./images_for_pr_1_readme/ex_task4.png)
 

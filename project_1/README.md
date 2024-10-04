@@ -18,3 +18,9 @@ _Добавление дополнительных технических инд
 
 ![alt text](./images_for_pr_1_readme/ex_task4.png)
 
+### Задача 5
+_Улучшенное управление временными периодами_
+
+![alt text](./images_for_pr_1_readme/ex_task5.png)
+
+

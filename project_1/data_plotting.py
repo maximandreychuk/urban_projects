@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from data_download import calculate_rsi
 
 
-def create_and_save_plot(data, ticker, period, filename=None):
+def create_and_save_plot(data, ticker, period, start, end, filename=None):
     plt.figure(figsize=(10, 6))
     if 'Date' not in data:
         if pd.api.types.is_datetime64_any_dtype(data.index):
@@ -42,7 +41,10 @@ def create_and_save_plot(data, ticker, period, filename=None):
     plt.ylabel("Цена")
 
     if filename is None:
-        filename = f"{ticker}_{period}_stock_price_chart.png"
+        if not period:
+            filename = f"{ticker}_{start}_{end}_stock_price_chart.png"
+        else:
+            filename = f"{ticker}_{period}_stock_price_chart.png"
 
     plt.savefig(filename)
     print(f"График сохранен как {filename}")

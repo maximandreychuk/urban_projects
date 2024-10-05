@@ -1,6 +1,6 @@
 import data_download as dd
 import data_plotting as dplt
-
+import matplotlib.pyplot as plt
 import datetime as dt
 
 
@@ -17,19 +17,27 @@ def main():
     else:
         start, end = None, None
     treshold = input("Введите порог для данных (например, 10.2): ")
+    style = input(f"Введите стиль для отображения графика: \n{', '.join(plt.style.available)}\n")
 
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period=period, start=start, end=end)
     # Notification of strong fluctuations
     print(dd.notify_if_strong_fluctuations(stock_data, treshold))
-    # Calculates and outputs the average closing price of shares for a given period.
+    # Calculates and outputs the average closing price of shares for a given period.xw
     print(f"Среднее значение за выбранный период - {dd.calculate_and_display_average_price(stock_data)}")
     # Calculate RSI
     stock_data = dd.calculate_rsi(stock_data)
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
     # Plot the data
-    dplt.create_and_save_plot(stock_data, ticker=ticker, period=period, start=start, end=end)
+    dplt.create_and_save_plot(
+        stock_data,
+        ticker=ticker,
+        period=period,
+        start=start,
+        end=end,
+        style=style,
+    )
     # Writing data to csv file
     dd.export_data_to_csv(stock_data,f"{ticker}_data_{dt.date.today()}.csv")
 

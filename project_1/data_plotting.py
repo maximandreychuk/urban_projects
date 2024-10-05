@@ -1,9 +1,51 @@
+import logging
 import matplotlib.pyplot as plt
 import pandas as pd
 
+logging.basicConfig(
+    level=logging.INFO,
+    filename="logging.log",
+    filemode="w",
+    format="%(asctime)s %(levelname)s %(message)s",
+)
 
 
-def create_and_save_plot(data, ticker, period, start, end, filename=None):
+def create_and_save_plot(data, ticker, period, start=None, end=None, filename=None, style="ggplot"):
+    """
+    This function creates and saves a stock price chart based on the given data,
+    ticker symbol, period, start and end dates, and filename.
+    The user can choose the style of plotting
+
+    :param data: pd.DataFrame, input data containing stock information
+    :param ticker: str, ticker symbol of the stock
+    :param period: str, time period for the stock data
+    :param start: str, start date for the stock data (optional)
+    :param end: str, end date for the stock data (optional)
+    :param filename: str, name of the file to save the plot (optional)
+    :param style: str, style to apply to the plot (default is 'ggplot')
+
+    :return plot: Save the stock price chart as an image file
+
+    The function plots two subplots:
+    Close Price vs. Moving Average
+    RSI (Relative Strength Index) with the upper and lower threshold lines.
+    """
+    try:
+        plt.style.use(style)
+        logging.info(
+            "%s: Пользователь ввел валидный стиль",
+            create_and_save_plot.__name__,
+        )
+    except OSError as e:
+        logging.debug(
+            "%s: Пользователь ввел не валидный стиль %s",
+            create_and_save_plot.__name__,
+            style
+        )
+        print(f"Что-то пошло не так: {e} \nГрафик выполнен в стиле ggplot")
+        plt.style.use(style="ggplot")
+
+
     plt.figure(figsize=(10, 6))
     if 'Date' not in data:
         if pd.api.types.is_datetime64_any_dtype(data.index):
@@ -47,4 +89,9 @@ def create_and_save_plot(data, ticker, period, start, end, filename=None):
             filename = f"{ticker}_{period}_stock_price_chart.png"
 
     plt.savefig(filename)
+    logging.info(
+        "%s: График сохранен как %r",
+        create_and_save_plot.__name__,
+        filename,
+    )
     print(f"График сохранен как {filename}")

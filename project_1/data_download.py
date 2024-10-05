@@ -3,7 +3,7 @@ import yfinance as yf
 
 logging.basicConfig(
     level=logging.INFO,
-    filename="my_log.log",
+    filename="logging.log",
     filemode="w",
     format="%(asctime)s %(levelname)s %(message)s",
 )
@@ -17,7 +17,7 @@ def fetch_stock_data(ticker, period=None, start=None, end=None):
     :param start: str, optional parameter, start date in 'yyyy-mm-dd' format
     :param end: str, optional parameter, end date in 'yyyy-mm-dd' format
 
-    :return data: pd.DataFrame, containing the stock data for the specified parameters
+    :return data: containing the stock data for the specified parameters
     """
     stock = yf.Ticker(ticker)
     # передаем временной отрезок в зависимости от того, что ввел пользователь
@@ -155,8 +155,9 @@ def notify_if_strong_fluctuations(data, treshold):
     else:
         logging.info(
             "%s: Сильных колебаний нет",
-            notify_if_strong_fluctuations.__name__
+            notify_if_strong_fluctuations.__name__,
         )
+        return "Уведомлений нет"
 
 def export_data_to_csv(data, filename):
     """
@@ -170,6 +171,9 @@ def export_data_to_csv(data, filename):
     :return None
     """
     data.to_csv(filename, index=False)
-    logging.info("Данные записаны в csv file")
+    logging.info(
+        "%s: Данные записаны в csv file",
+        export_data_to_csv.__name__,
+    )
 
 

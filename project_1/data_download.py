@@ -164,7 +164,6 @@ def export_data_to_csv(data, filename):
     This function takes a Pandas DataFrame and saves it to a CSV file with the given filename.
     The index column is not included in the CSV file.
 
-    Args:
     :param data: pd.DataFrame containing the data to be exported.
     :param filename: str, name of the CSV file to be created.
 
@@ -176,4 +175,20 @@ def export_data_to_csv(data, filename):
         export_data_to_csv.__name__,
     )
 
+def calculate_std(data):
+    """
+    Calculates the standard deviation of the closing price.
+
+    :param data: pd.DataFrame with a "Close" column containing closing prices.
+
+    :return std_dev: float, standard deviation of the closing price
+    """
+
+    std = data['Close'].std()
+    logging.info(
+        "%s: Подсчитано стандартное отклонение цены закрытия: %s",
+        calculate_std.__name__,
+        std
+    )
+    return std
 

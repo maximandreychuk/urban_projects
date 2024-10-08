@@ -29,6 +29,8 @@ def main():
     stock_data = dd.calculate_rsi(stock_data)
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
+    # Calculates the standard deviation of the closing price.
+    std = dd.calculate_std(stock_data)
     # Plot the data
     dplt.create_and_save_plot(
         stock_data,
@@ -37,6 +39,7 @@ def main():
         start=start,
         end=end,
         style=style,
+        std=std,
     )
     # Writing data to csv file
     dd.export_data_to_csv(stock_data,f"{ticker}_data_{dt.date.today()}.csv")

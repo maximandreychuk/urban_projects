@@ -32,7 +32,7 @@ def create_and_save_plot(
     :param end: str, end date for the stock data (optional)
     :param filename: str, name of the file to save the plot (optional)
     :param style: str, style to apply to the plot (default is 'ggplot')
-    :param std_dev: standard deviation of the closing price
+    :param std: standard deviation of the closing price
 
     :return plot: Save the stock price chart as an image file
 

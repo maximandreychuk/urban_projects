@@ -10,7 +10,16 @@ logging.basicConfig(
 )
 
 
-def create_and_save_plot(data, ticker, period, start=None, end=None, filename=None, style="ggplot"):
+def create_and_save_plot(
+        data,
+        ticker,
+        period,
+        std,
+        start=None,
+        end=None,
+        filename=None,
+        style="ggplot",
+):
     """
     This function creates and saves a stock price chart based on the given data,
     ticker symbol, period, start and end dates, and filename.
@@ -23,6 +32,7 @@ def create_and_save_plot(data, ticker, period, start=None, end=None, filename=No
     :param end: str, end date for the stock data (optional)
     :param filename: str, name of the file to save the plot (optional)
     :param style: str, style to apply to the plot (default is 'ggplot')
+    :param std_dev: standard deviation of the closing price
 
     :return plot: Save the stock price chart as an image file
 
@@ -46,13 +56,14 @@ def create_and_save_plot(data, ticker, period, start=None, end=None, filename=No
         plt.style.use(style="ggplot")
 
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 6))
     if 'Date' not in data:
         if pd.api.types.is_datetime64_any_dtype(data.index):
             dates = data.index.to_numpy()
             # subplot разделяет на два графика: первый
             plt.subplot(2, 1, 1)
             plt.plot(dates, data['Close'].values, label='Close Price')
+            plt.title(f'Цена закрытия {ticker} ({period})\nСтандартное отклонение: {std:.2f}')
             plt.plot(dates, data['Moving_Average'].values, label='Moving Average')
             plt.legend()
             # subplot разделяет на два графика: второй
@@ -69,9 +80,9 @@ def create_and_save_plot(data, ticker, period, start=None, end=None, filename=No
             data['Date'] = pd.to_datetime(data['Date'])
         plt.subplot(2, 1, 1)
         plt.plot(data['Date'], data['Close'], label='Close Price')
+        plt.title(f'Цена закрытия {ticker} ({period})\nСтандартное отклонение: {std:.2f}')
         plt.plot(data['Date'], data['Moving_Average'], label='Moving Average')
         plt.legend()
-
         plt.subplot(2, 1, 2)
         plt.plot(data['Date'], data['RSI'], label='RSI', color='blue')
         plt.axhline(70, linestyle='--', alpha=0.5, color='red')

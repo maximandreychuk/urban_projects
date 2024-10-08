@@ -37,7 +37,7 @@ def create_and_save_plot(
     :return plot: Save the stock price chart as an image file
 
     The function plots two subplots:
-    Close Price vs. Moving Average
+    Close Price vs. Moving Average vs Standard deviation
     RSI (Relative Strength Index) with the upper and lower threshold lines.
     """
     try:

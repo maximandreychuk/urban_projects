@@ -24,9 +24,15 @@ _Улучшенное управление временными периодам
 ![alt text](./images_for_pr_1_readme/ex_task5.png)
 
 ### Задача 6
-_добавление параметра для выбора стиля графика_
+_Добавление параметра для выбора стиля графика_
 
 ![alt text](./images_for_pr_1_readme/ex_task6_1.png)
 
 ![alt text](./images_for_pr_1_readme/ex_task6_2.png)
+
+### Задача 6
+_Расширенный анализ данных_
+
+![alt text](./images_for_pr_1_readme/ex_task7.png)
+
 

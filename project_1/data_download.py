@@ -1,7 +1,8 @@
 import logging
 import yfinance as yf
-
+from plotly import graph_objs as go
 from datetime import date
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -213,3 +214,39 @@ def calculate_std(data):
         std
     )
     return std
+
+
+def interactive_graph(data):
+    """
+    Creates an interactive chart of the closing price using Plotly.
+
+    :param data: pd.DataFrame with a "Close" column containing closing prices.
+
+    :return None, displays an interactive graph in the console.
+    """
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=data.index,
+            y=data['Close'],
+            name='Цена закрытия'
+        )
+    )
+    fig.update_layout(
+        title=f'Цена закрытия',
+        xaxis_title='Дата',
+        yaxis_title='Цена закрытия',
+    )
+    fig.show()
+    logging.info(
+        "%s: Создан интерактивный график",
+        interactive_graph.__name__,
+    )
+    average_close = data['Close'].mean()
+    logging.info(
+        "%s: Рассчитано среднее значение цены закрытия %s",
+        interactive_graph.__name__,
+        average_close
+    )
+    print(f'Среднее значение цены закрытия: {average_close}\n')

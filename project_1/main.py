@@ -41,6 +41,8 @@ def main():
         style=style,
         std=std,
     )
+    # Create interactive graph using data
+    dd.interactive_graph(stock_data)
     # Writing data to csv file
     dd.export_data_to_csv(stock_data,f"{ticker}_data_{dt.date.today()}.csv")
 

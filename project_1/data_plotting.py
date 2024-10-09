@@ -21,7 +21,7 @@ def create_and_save_plot(
         style="ggplot",
 ):
     """
-    This function creates and saves a stock price chart based on the given data,
+    This function creates and saves a stock price based on the given data,
     ticker symbol, period, start and end dates, and filename.
     The user can choose the style of plotting
 
@@ -55,16 +55,27 @@ def create_and_save_plot(
         print(f"Что-то пошло не так: {e} \nГрафик выполнен в стиле ggplot")
         plt.style.use(style="ggplot")
 
-
-    plt.figure(figsize=(12, 6))
+    plt.figure(
+        figsize=(
+            12,
+            6,
+        )
+    )
     if 'Date' not in data:
         if pd.api.types.is_datetime64_any_dtype(data.index):
             dates = data.index.to_numpy()
             # subplot разделяет на два графика: первый
             plt.subplot(2, 1, 1)
             plt.plot(dates, data['Close'].values, label='Close Price')
-            plt.title(f'Цена закрытия {ticker} ({period})\nСтандартное отклонение: {std:.2f}')
-            plt.plot(dates, data['Moving_Average'].values, label='Moving Average')
+            plt.title(
+                f"Цена закрытия {ticker} ({period})"
+                "\nСтандартное отклонение: {std:.2f}"
+            )
+            plt.plot(
+                dates,
+                data['Moving_Average'].values,
+                label='Moving Average'
+            )
             plt.legend()
             # subplot разделяет на два графика: второй
             plt.subplot(2, 1, 2)
@@ -73,14 +84,20 @@ def create_and_save_plot(
             plt.axhline(30, linestyle='--', alpha=0.5, color='green')
             plt.legend()
         else:
-            print("Информация о дате отсутствует или не имеет распознаваемого формата.")
+            print(
+                "Информация о дате отсутствует "
+                "или не имеет распознаваемого формата."
+            )
             return
     else:
         if not pd.api.types.is_datetime64_any_dtype(data['Date']):
             data['Date'] = pd.to_datetime(data['Date'])
         plt.subplot(2, 1, 1)
         plt.plot(data['Date'], data['Close'], label='Close Price')
-        plt.title(f'Цена закрытия {ticker} ({period})\nСтандартное отклонение: {std:.2f}')
+        plt.title(
+                f"Цена закрытия {ticker} ({period})"
+                "\nСтандартное отклонение: {std:.2f}"
+            )
         plt.plot(data['Date'], data['Moving_Average'], label='Moving Average')
         plt.legend()
         plt.subplot(2, 1, 2)

@@ -1,6 +1,8 @@
 import logging
 import yfinance as yf
 
+from datetime import date
+
 logging.basicConfig(
     level=logging.INFO,
     filename="logging.log",
@@ -8,14 +10,15 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(message)s",
 )
 
+
 def fetch_stock_data(ticker, period=None, start=None, end=None):
     """
     This function retrieves data from the trading history
 
     :param ticker: str, the stock ticker symbol
-    :param period: str, optional parameter, the time period for the data (e.g. '1d', '1mo', '1y')
-    :param start: str, optional parameter, start date in 'yyyy-mm-dd' format
-    :param end: str, optional parameter, end date in 'yyyy-mm-dd' format
+    :param period: str, optional, the time period (e.g. '1d', '1mo', '1y')
+    :param start: str, optional, start date in 'yyyy-mm-dd' format
+    :param end: str, optional, end date in 'yyyy-mm-dd' format
 
     :return data: containing the stock data for the specified parameters
     """
@@ -38,15 +41,17 @@ def fetch_stock_data(ticker, period=None, start=None, end=None):
         )
     return data
 
+
 def calculate_rsi(data, window=14):
     """
     Calculates the Relative Strength Index (RSI) for a given dataset.
 
     :param data: pd.DataFrame with a "Close" column containing closing prices.
-    :param window: int, value specifying the window for calculating RSI (default is 14).
+    :param window: int, value specifying the window for calculating RSI.
     :return data: pd.DataFrame with an additional "RSI" column added.
 
-    The RSI is a technical indicator used in financial analysis to evaluate the speed and change of price movements.
+    The RSI is a technical indicator used in financial analysis
+    to evaluate the speed and change of price movements.
     """
 
     # рассчитываем приросты цен:
@@ -65,13 +70,15 @@ def calculate_rsi(data, window=14):
     data["RSI"] = rsi
     return data
 
+
 def add_moving_average(data, window_size=5):
     """
     Calculates the moving average of the closing prices in the input data.
 
     :param data: pd.DataFrame with a "Close" column containing closing prices.
-    :param window_size: int, the size of the moving average window (default is 5).
-    :return data: pd.DataFrame with an additional column "Moving_Average" containing the calculated moving averages.
+    :param window_size: int, the size of the moving average window.
+    :return data: pd.DataFrame with an additional column
+    "Moving_Average" containing the calculated moving averages.
     """
 
     data["Moving_Average"] = data["Close"].rolling(window=window_size).mean()
@@ -81,9 +88,11 @@ def add_moving_average(data, window_size=5):
     )
     return data
 
+
 def calculate_and_display_average_price(data):
     """
-    This function calculates the average value of the closing prices and displays
+    This function calculates the average value
+    of the closing prices and displays
 
     :param data: pd.DataFrame with a "Close" column containing closing prices.
 
@@ -97,21 +106,28 @@ def calculate_and_display_average_price(data):
     )
     return av_price
 
+
 def notify_if_strong_fluctuations(data, treshold):
     """
-    Checks for strong fluctuations in the data and notifies if the threshold is exceeded.
+    Checks for strong fluctuations in the data
+    and notifies if the threshold is exceeded.
 
     :param data: pd.DataFrame The dataset containing high and low prices.
     :param treshold: float, the threshold for fluctuations.
 
-    :return message: str, a notification if strong fluctuations are detected, otherwise no notifications are sent.
+    :return message: str, a notification if strong fluctuations are detected,
+    otherwise no notifications are sent.
 
     Raises:
     ValueError: If the input threshold is not a float.
 
-    The function takes a dataset with high and low prices and a threshold value.
-    It calculates the difference between high and low prices and checks if the difference exceeds the given threshold.
-    If strong fluctuations are detected, the function sends a notification with the date and the amount by which the threshold was exceeded.
+    The function takes a dataset with high and low
+    prices and a threshold value.
+    It calculates the difference between high and low prices
+    and checks if the difference exceeds the given threshold.
+
+    If strong fluctuations are detected, the function sends a notification
+    with the date and the amount by which the threshold was exceeded.
     If no strong fluctuations are found, no notifications are sent.
     """
     # проверка что treshold это float
@@ -141,7 +157,10 @@ def notify_if_strong_fluctuations(data, treshold):
                 # получаем дату (например, по High)
                 low_key = data.index[data["High"] == j].tolist()
                 # форматируем дату
-                date_format = f"{low_key[0].day}.{low_key[0].month}.{low_key[0].year}"
+                low_key = [date(2023, 10, 27)]
+                date_format = f"{low_key[0].strftime('%d.%m.%Y')}"
+                # date_format = f"{low_key[0].day}.
+                # {low_key[0].month}.{low_key[0].year}"
                 dct[date_format] = diff-treshold
     # если словарь не пуст, отправляем уведомление
     if len(dct) != 0:
@@ -159,9 +178,11 @@ def notify_if_strong_fluctuations(data, treshold):
         )
         return "Уведомлений нет"
 
+
 def export_data_to_csv(data, filename):
     """
-    This function takes a Pandas DataFrame and saves it to a CSV file with the given filename.
+    This function takes a Pandas DataFrame and saves it
+    to a CSV file with the given filename.
     The index column is not included in the CSV file.
 
     :param data: pd.DataFrame containing the data to be exported.
@@ -174,6 +195,7 @@ def export_data_to_csv(data, filename):
         "%s: Данные записаны в csv file",
         export_data_to_csv.__name__,
     )
+
 
 def calculate_std(data):
     """
@@ -191,4 +213,3 @@ def calculate_std(data):
         std
     )
     return std
-
